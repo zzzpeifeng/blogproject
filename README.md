@@ -1,1 +1,1 @@
-第一个django像样点的项目
+The first project about django.
