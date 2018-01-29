@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'comments',
     'xadmin',
     'reversion',
-    'crispy_forms'
+    'crispy_forms',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -60,7 +60,7 @@ ROOT_URLCONF = 'blogproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  #设置模板路径
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

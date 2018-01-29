@@ -8,9 +8,6 @@ from django.template import loader
 
 
 
-
-
-
 class PostAdmin(object):
     list_display = ('title', 'created_time', 'modified_time', 'excerpt', 'category', 'tags', 'author')
     search_fields = ('title', 'created_time', 'modified_time', 'excerpt')
@@ -20,7 +17,7 @@ class PostAdmin(object):
     list_editable = ('category', 'tags')
     import_excel = True #导入
     data_charts = {
-        "user_count": {'title': u"微博发布", "x-field": "created_time", "y-field": ("modified_time",),
+        "user_count": {'title': u"博客发布", "x-field": "created_time", "y-field": ("modified_time",),
                        "order": ('created_time',)
                        }
     }

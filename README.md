@@ -1,1 +1,1 @@
-The first project about django.
+#The first project about django.

@@ -8,12 +8,12 @@
                             <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
                         </h1>
                         <div class="entry-meta">
-                            <span class="post-category"><a href="{{ post.get_absolute_url }}">{{ post.category }}</a></span>
+                            <span class="post-category"><a href="{{ post.get_absolute_url }}">{{ post.category.name }}</a></span>
                             <span class="post-date"><a href="{{ post.get_absolute_url }}"><time class="entry-date"
                                                                       datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
                             <span class="post-author"><a href="#">{{ post.created_time }}</a></span>
-                            <span class="comments-link"><a href="#">4 评论</a></span>
-                            <span class="views-count"><a href="#">588 阅读</a></span>
+                            <span class="comments-link"><a href="#">评论：{{ post.comment_set.count }} </a></span>
+                            <span class="views-count"><a href="#"> 阅读：{{ post.views_num }}</a></span>
                         </div>
                     </header>
                     <div class="entry-content clearfix">
