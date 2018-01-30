@@ -13,6 +13,7 @@ class IndexView(ListView):
     model = Post  # 指定获取模型，Post
     template_name = 'blog/index.html'  # 指定视图渲染模板
     context_object_name = 'post_list'  # 指定获取模型列表数据保存变量名。
+    paginate_by = 10
 
 
 # def index(request):
@@ -42,14 +43,10 @@ class ArchivesView(IndexView):
         month = self.kwargs.get('month')
         return super(ArchivesView, self).get_queryset().filter(created_time__year=year,
                                                                created_time__month=month).order_by("-created_time")
-
-
 # 归档跳转
 # def archives(request, year, month):
 #     post_list = Post.objects.filter(created_time__year=year, created_time__month=month).order_by('-created_time')
 #     return render(request, 'blog/index.html', context={'post_list': post_list})
-
-
 class PostDetailView(DetailView):
     model = Post
     template_name = "blog/detail.html"
@@ -59,7 +56,6 @@ class PostDetailView(DetailView):
         response= super(PostDetailView,self).get(request,*args,**kwargs)
         self.object.increase_views()
         return response
-
     #获取对应的文章
     def get_object(self, queryset=None):
         # 覆写 get_object 方法的目的是因为需要对 post 的 body 值进行渲染
@@ -81,26 +77,24 @@ class PostDetailView(DetailView):
             'comment_list':comment_list
         })
         return context
-
-
 # 跳转详情
-def detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    post.increase_views()
-    # extra
-    post.body = markdown.markdown(post.body,
-                                  extensions=[
-                                      'markdown.extensions.extra',
-                                      'markdown.extensions.codehilite',
-                                      'markdown.extensions.toc',
-                                  ])
-    form = CommentForm()
-    # 获取这篇 post 下的全部评论
-    # 一对多查找，根据post对象找comment对象
-    comment_list = post.comment_set.all()
-    # 将文章、表单、以及文章下的评论列表作为模板变量传给 detail.html 模板，以便渲染相应数据。
-    context = {'post': post,
-               'form': form,
-               'comment_list': comment_list
-               }
-    return render(request, 'blog/detail.html', context=context)
+# def detail(request, pk):
+#     post = get_object_or_404(Post, pk=pk)
+#     post.increase_views()
+#     # extra
+#     post.body = markdown.markdown(post.body,
+#                                   extensions=[
+#                                       'markdown.extensions.extra',
+#                                       'markdown.extensions.codehilite',
+#                                       'markdown.extensions.toc',
+#                                   ])
+#     form = CommentForm()
+#     # 获取这篇 post 下的全部评论
+#     # 一对多查找，根据post对象找comment对象
+#     comment_list = post.comment_set.all()
+#     # 将文章、表单、以及文章下的评论列表作为模板变量传给 detail.html 模板，以便渲染相应数据。
+#     context = {'post': post,
+#                'form': form,
+#                'comment_list': comment_list
+#                }
+#     return render(request, 'blog/detail.html', context=context)
